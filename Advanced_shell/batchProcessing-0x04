@@ -3,12 +3,12 @@
 # List of Pokémon
 pokemon_list=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
 
-# Create output directory and error log
+# Output directory and error log
 mkdir -p pokemon_data
 error_log="parallel_fetch_errors.txt"
-> "$error_log"
+> "$error_log"  # Clear error log
 
-# Function to fetch a single Pokémon's data
+# Function to fetch Pokémon data
 fetch_pokemon() {
     name=$1
     echo "Fetching data for $name..."
@@ -20,12 +20,12 @@ fetch_pokemon() {
     fi
 }
 
-# Loop through and run fetch in background
+# Launch fetches in parallel
 for name in "${pokemon_list[@]}"; do
     fetch_pokemon "$name" &
 done
 
-# Wait for all background jobs to finish
+# Wait for all background jobs to complete
 wait
 
 echo "✅ All fetch operations completed."
